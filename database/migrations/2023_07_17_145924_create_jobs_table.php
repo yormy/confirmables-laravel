@@ -19,13 +19,13 @@ return new class extends Migration
             $table->boolean('email_required')->nullable();
             $table->boolean('phone_required')->nullable();
 
-            $table->date('email_verified_at')->nullable();
+            $table->datetime('email_verified_at')->nullable();
             $table->string('email_verified_from')->nullable();
 
-            $table->date('phone_verified_at')->nullable();
+            $table->datetime('phone_verified_at')->nullable();
             $table->string('phone_verified_from')->nullable();
 
-            $table->date('executed_at')->nullable();
+            $table->datetime('dispatched_at')->nullable();
 
             $table->timestamps();
         });

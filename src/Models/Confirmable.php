@@ -14,13 +14,6 @@ class Confirmable extends Model
     const STATUS_VERIFIED = 'VERIFIED';
     const STATUS_EXECUTED = 'EXECUTED';
 
-    protected $fillable = [
-        'payload',
-        'arguments',
-        'email_required',
-        'phone_required'
-    ];
-
     public function build(
         BaseActionJob $job,
         BaseActionData $data,
@@ -91,6 +84,10 @@ class Confirmable extends Model
         $nextStep = $this->getNextStep();
         if ( $nextStep === static::STATUS_VERIFIED) {
             $this->dispatch();
+
+            $this->dispatched_at = Carbon::now();
+            $this->save();
+
             return static::STATUS_EXECUTED;
         }
 
