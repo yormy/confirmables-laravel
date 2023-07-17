@@ -37,7 +37,6 @@ class ExampleUnitTest extends TestCase
 
         $xid = $confirmable->xid;
 
-
         $confirmable = new Confirmable();
         $confirmableExecute = $confirmable->findByXid($xid);
         $confirmableExecute->setEmailVerified();
