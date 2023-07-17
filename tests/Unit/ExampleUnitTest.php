@@ -38,8 +38,8 @@ class ExampleUnitTest extends TestCase
 
 
         $confirmableExecute = Confirmable::first();
-       // $confirmableExecute->setEmailVerified();
-      //  $confirmableExecute->setPhoneVerified();
+        $confirmableExecute->setEmailVerified();
+        $confirmableExecute->setPhoneVerified();
        // dd($confirmableExecute->isEmailVerified());
         $isVerified = $confirmableExecute->isAllVerified();
 

@@ -48,13 +48,13 @@ class Confirmable extends Model
         return $this;
     }
 
-    public function setEmailVerified()
+    public function setEmailVerified(): void
     {
         $this->email_verified_at = Carbon::now();
         $this->save();
     }
 
-    public function setPhoneVerified()
+    public function setPhoneVerified(): void
     {
         $this->phone_verified_at = Carbon::now();
         $this->save();
