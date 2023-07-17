@@ -11,10 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('actions', function (Blueprint $table) {
+        Schema::create('confirmables', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->longText('payload');
             $table->longText('arguments')->nullable();
+
+            $table->boolean('requires_email')->nullable();
+            $table->boolean('requires_phone')->nullable();
+
+            $table->date('email_verified_at')->nullable();
+            $table->string('email_verified_from')->nullable();
+
+            $table->date('phone_verified_at')->nullable();
+            $table->string('phone_verified_from')->nullable();
+
+            $table->date('executed_at')->nullable();
 
             $table->timestamps();
         });

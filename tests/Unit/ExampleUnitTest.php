@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Mail;
 use Yormy\ConfirmablesLaravel\Jobs\ActionJob;
 use Yormy\ConfirmablesLaravel\Jobs\ActionJobData;
 use Yormy\ConfirmablesLaravel\Tests\Helpers\DebugNotification;
-use Yormy\ConfirmablesLaravel\Models\Action;
+use Yormy\ConfirmablesLaravel\Models\Confirmable;
 use Yormy\ConfirmablesLaravel\Tests\TestCase;
 
 class ExampleUnitTest extends TestCase
@@ -21,32 +21,28 @@ class ExampleUnitTest extends TestCase
     {
         //TestActionJob::dispatch(); // ip dispatch store....
 
-        Action::truncate();
+        Confirmable::truncate();
 
         // prepare action (request email change)
         $job = new ActionJob();
         $data = new ActionJobData();
         $data->firstname = 'ssssss';
 
-        $payload = serialize($job);
-        $arguments = serialize($data);
-        Action::create([
-            'payload' => $payload,
-            'arguments' => $arguments
+        // make confirmable
+        $confirmable = Confirmable::create([
+            'payload' => serialize($job),
+            'arguments' => serialize($data),
+            'requires_email' => true,
         ]);
 
 
-        // ??
-        // if action is verified => dispatch
+        //$confirmable->setEmailVerified();
 
-        // complete action (request email change)
-        $todo = Action::first();
-        $unserialized = unserialize($todo->payload);
-        $arguments = unserialize($todo->arguments);
-
-        $unserialized->dispatch(...$arguments->toArray());
+        $isVerified = $confirmable->isVerified();
 
 
-        dd($payload);
+        $execute = $confirmable->execute();
+
+        dd($execute);
     }
 }
