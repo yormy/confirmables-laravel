@@ -6,9 +6,12 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Yormy\ConfirmablesLaravel\Jobs\BaseActionData;
 use Yormy\ConfirmablesLaravel\Jobs\BaseActionJob;
+use Yormy\Xid\Models\Traits\Xid;
 
 class Confirmable extends Model
 {
+    use Xid;
+
     const STATUS_EMAIL_NEEDED = 'EMAIL_NEEDED';
     const STATUS_PHONE_NEEDED = 'PHONE_NEEDED';
     const STATUS_VERIFIED = 'VERIFIED';
@@ -26,6 +29,10 @@ class Confirmable extends Model
         $this->phone_required = $phoneRequired;
 
         $this->save();
+    }
+
+    public function findByXid(string $xid): self {
+        return $this->where('xid', $xid)->firstOrFail();
     }
 
     public function emailRequired(): self

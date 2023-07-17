@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('confirmables', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('xid')->unique();
             $table->longText('payload');
             $table->longText('arguments')->nullable();
 

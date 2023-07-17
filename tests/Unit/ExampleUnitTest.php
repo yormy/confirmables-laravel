@@ -35,9 +35,11 @@ class ExampleUnitTest extends TestCase
         $confirmable->phoneRequired();
         $confirmable->save();
 
+        $xid = $confirmable->xid;
 
 
-        $confirmableExecute = Confirmable::first();
+        $confirmable = new Confirmable();
+        $confirmableExecute = $confirmable->findByXid($xid);
         $confirmableExecute->setEmailVerified();
         $confirmableExecute->setPhoneVerified();
        // dd($confirmableExecute->isEmailVerified());
