@@ -32,14 +32,15 @@ class ExampleUnitTest extends TestCase
         $confirmable = Confirmable::create([
             'payload' => serialize($job),
             'arguments' => serialize($data),
-            'requires_email' => true,
+            'email_required' => true,
+            'phone_required' => true,
         ]);
 
 
-        //$confirmable->setEmailVerified();
-
-        $isVerified = $confirmable->isVerified();
-
+        $confirmable->setEmailVerified();
+        $confirmable->setPhoneVerified();
+       // dd($confirmable->isEmailVerified());
+        $isVerified = $confirmable->isAllVerified();
 
         $execute = $confirmable->execute();
 

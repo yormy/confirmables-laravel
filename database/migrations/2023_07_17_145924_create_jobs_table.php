@@ -16,8 +16,8 @@ return new class extends Migration
             $table->longText('payload');
             $table->longText('arguments')->nullable();
 
-            $table->boolean('requires_email')->nullable();
-            $table->boolean('requires_phone')->nullable();
+            $table->boolean('email_required')->nullable();
+            $table->boolean('phone_required')->nullable();
 
             $table->date('email_verified_at')->nullable();
             $table->string('email_verified_from')->nullable();
