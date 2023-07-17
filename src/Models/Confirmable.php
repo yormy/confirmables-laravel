@@ -4,6 +4,8 @@ namespace Yormy\ConfirmablesLaravel\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Yormy\ConfirmablesLaravel\Jobs\BaseActionData;
+use Yormy\ConfirmablesLaravel\Jobs\BaseActionJob;
 
 class Confirmable extends Model
 {
@@ -18,6 +20,33 @@ class Confirmable extends Model
         'email_required',
         'phone_required'
     ];
+
+    public function build(
+        BaseActionJob $job,
+        BaseActionData $data,
+        bool $emailRequired = false,
+        bool $phoneRequired = false,
+    ) {
+        $this->payload = serialize($job);
+        $this->arguments = serialize($data);
+        $this->email_required = $emailRequired;
+        $this->phone_required = $phoneRequired;
+
+        $this->save();
+    }
+
+    public function emailRequired(): self
+    {
+        $this->email_required = true;
+
+        return $this;
+    }
+
+    public function phoneRequired(): self
+    {
+        $this->phone_required = true;
+        return $this;
+    }
 
     public function setEmailVerified()
     {

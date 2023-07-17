@@ -28,21 +28,22 @@ class ExampleUnitTest extends TestCase
         $data = new ActionJobData();
         $data->firstname = 'ssssss';
 
-        // make confirmable
-        $confirmable = Confirmable::create([
-            'payload' => serialize($job),
-            'arguments' => serialize($data),
-            'email_required' => true,
-            'phone_required' => true,
-        ]);
+
+        $confirmable = new Confirmable();
+        $confirmable->build($job, $data);
+        $confirmable->emailRequired();
+        $confirmable->phoneRequired();
+        $confirmable->save();
 
 
-        $confirmable->setEmailVerified();
-        $confirmable->setPhoneVerified();
-       // dd($confirmable->isEmailVerified());
-        $isVerified = $confirmable->isAllVerified();
 
-        $execute = $confirmable->execute();
+        $confirmableExecute = Confirmable::first();
+       // $confirmableExecute->setEmailVerified();
+      //  $confirmableExecute->setPhoneVerified();
+       // dd($confirmableExecute->isEmailVerified());
+        $isVerified = $confirmableExecute->isAllVerified();
+
+        $execute = $confirmableExecute->execute();
 
         dd($execute);
     }

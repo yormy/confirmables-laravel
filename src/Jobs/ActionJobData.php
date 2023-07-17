@@ -2,7 +2,7 @@
 
 namespace Yormy\ConfirmablesLaravel\Jobs;
 
-class ActionJobData
+class ActionJobData extends BaseActionData
 {
     public string $firstname;
 
