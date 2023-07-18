@@ -2,11 +2,10 @@
 
 namespace Yormy\ConfirmablesLaravel\tests\Unit;
 
-use Carbon\CarbonImmutable;
+use Illuminate\Support\Facades\Event;
 use Yormy\ConfirmablesLaravel\Models\Confirmable;
-use Yormy\ConfirmablesLaravel\Services\CodeVerifier;
+use Yormy\ConfirmablesLaravel\Tests\Setup\Events\ConfirmableExecuted;
 use Yormy\ConfirmablesLaravel\Tests\TestCase;
-use Yormy\ConfirmablesLaravel\Tests\Traits\CodeTrait;
 use Yormy\ConfirmablesLaravel\Tests\Traits\ConfirmableTrait;
 use Yormy\ConfirmablesLaravel\Tests\Traits\UserTrait;
 
@@ -15,9 +14,16 @@ class ConfirmableTest extends TestCase
     use UserTrait;
     use ConfirmableTrait;
 
+    public function SetUp(): void
+    {
+        parent::SetUp();
+
+        Event::fake([ConfirmableExecuted::class]);
+    }
+
     /**
      * @test
-     * @group action
+     * @group actioxx
      */
     public function ConfirmableNoRequire_NothingSet_Success(): void
     {
@@ -26,6 +32,7 @@ class ConfirmableTest extends TestCase
         $confirmableExecute = $this->findConfirmable($confirmableCreated->xid);
 
         $result = $confirmableExecute->execute();
+        $this->assertExecuted();
 
         $this->assertEquals(Confirmable::STATUS_EXECUTED, $result);
     }
@@ -43,6 +50,7 @@ class ConfirmableTest extends TestCase
         $confirmableExecute = $this->findConfirmable($confirmableCreated->xid);
 
         $result = $confirmableExecute->execute();
+        $this->assertNotExecuted();
 
         $this->assertEquals(Confirmable::STATUS_EMAIL_NEEDED, $result);
     }
@@ -60,6 +68,7 @@ class ConfirmableTest extends TestCase
         $confirmableExecute = $this->findConfirmable($confirmableCreated->xid);
 
         $result = $confirmableExecute->execute();
+        $this->assertNotExecuted();
 
         $this->assertEquals(Confirmable::STATUS_PHONE_NEEDED, $result);
     }
@@ -77,6 +86,7 @@ class ConfirmableTest extends TestCase
         $confirmableExecute = $this->findConfirmable($confirmableCreated->xid);
         $confirmableExecute->setEmailVerified();
         $result = $confirmableExecute->execute();
+        $this->assertExecuted();
 
         $this->assertEquals(Confirmable::STATUS_EXECUTED, $result);
     }
@@ -94,6 +104,7 @@ class ConfirmableTest extends TestCase
         $confirmableExecute = $this->findConfirmable($confirmableCreated->xid);
         $confirmableExecute->setPhoneVerified();
         $result = $confirmableExecute->execute();
+        $this->assertExecuted();
 
         $this->assertEquals(Confirmable::STATUS_EXECUTED, $result);
     }
@@ -111,6 +122,7 @@ class ConfirmableTest extends TestCase
         $confirmableExecute = $this->findConfirmable($confirmableCreated->xid);
         $confirmableExecute->setPhoneVerified();
         $result = $confirmableExecute->execute();
+        $this->assertNotExecuted();
 
         $this->assertEquals(Confirmable::STATUS_EMAIL_NEEDED, $result);
     }
@@ -129,6 +141,7 @@ class ConfirmableTest extends TestCase
         $confirmableExecute = $this->findConfirmable($confirmableCreated->xid);
         $confirmableExecute->setEmailVerified();
         $result = $confirmableExecute->execute();
+        $this->assertNotExecuted();
 
         $this->assertEquals(Confirmable::STATUS_PHONE_NEEDED, $result);
     }
@@ -147,6 +160,7 @@ class ConfirmableTest extends TestCase
         $confirmableExecute = $this->findConfirmable($confirmableCreated->xid);
         $confirmableExecute->setPhoneVerified();
         $result = $confirmableExecute->execute();
+        $this->assertNotExecuted();
 
         $this->assertEquals(Confirmable::STATUS_EMAIL_NEEDED, $result);
     }
@@ -164,6 +178,7 @@ class ConfirmableTest extends TestCase
 
         $confirmableExecute = $this->findConfirmable($confirmableCreated->xid);
         $result = $confirmableExecute->execute();
+        $this->assertNotExecuted();
 
         $this->assertEquals(Confirmable::STATUS_EMAIL_NEEDED, $result);
     }
@@ -185,16 +200,27 @@ class ConfirmableTest extends TestCase
         $confirmableExecute->setPhoneVerified();
         $confirmableExecute->setEmailVerified();
         $result = $confirmableExecute->execute();
+        $this->assertExecuted();
 
         $this->assertEquals(Confirmable::STATUS_EXECUTED, $result);
     }
 
 
-
+    // ---------- HELPERS ----------
     protected function findConfirmable(string $xid): Confirmable
     {
         $confirmable = new Confirmable();
         return $confirmable->findByXid($xid);
+    }
+
+    protected function assertExecuted()
+    {
+        Event::assertDispatched(ConfirmableExecuted::class);
+    }
+
+    protected function assertNotExecuted()
+    {
+        Event::assertNotDispatched(ConfirmableExecuted::class);
     }
 
 }

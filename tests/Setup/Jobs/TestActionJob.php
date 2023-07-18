@@ -3,19 +3,13 @@
 namespace Yormy\ConfirmablesLaravel\Tests\Setup\Jobs;
 
 use Yormy\ConfirmablesLaravel\Jobs\BaseActionJob;
+use Yormy\ConfirmablesLaravel\Tests\Setup\Events\ConfirmableExecuted;
 
 class TestActionJob extends BaseActionJob
 {
 
-    public function __construct(
-        private string $firstname = ''
-    ) {
-    }
-
     public function handle(): void
     {
-        // do something with data
+        event(new ConfirmableExecuted('',''));
     }
-
-
 }

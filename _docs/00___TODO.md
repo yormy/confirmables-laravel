@@ -2,8 +2,6 @@
 Confirmable by
 Password
 Loginname ?
-unit test job performed
-
 
 # Verify Code:
 -track number of retries

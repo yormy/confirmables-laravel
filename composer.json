@@ -53,7 +53,7 @@
 
         "---------- TESTS ---------- ": "",
         "test:all": "vendor/bin/paratest",
-        "t": "vendor/bin/phpunit --testdox --group action",
+        "t": "vendor/bin/phpunit --testdox --group actioxx",
         "t:unit": "vendor/bin/phpunit --colors=always --testdox --testsuite Unit",
         "test:unit": "vendor/bin/paratest --colors=always --testdox --testsuite Unit",
 
