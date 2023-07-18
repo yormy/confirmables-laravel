@@ -29,6 +29,7 @@ return new class extends Migration
             $table->datetime('dispatched_at')->nullable();
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

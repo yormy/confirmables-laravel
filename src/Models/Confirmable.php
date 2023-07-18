@@ -4,6 +4,8 @@ namespace Yormy\ConfirmablesLaravel\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Yormy\ConfirmablesLaravel\Jobs\BaseActionData;
 use Yormy\ConfirmablesLaravel\Jobs\BaseActionJob;
 use Yormy\Xid\Models\Traits\Xid;
@@ -11,6 +13,7 @@ use Yormy\Xid\Models\Traits\Xid;
 class Confirmable extends Model
 {
     use Xid;
+    use SoftDeletes;
 
     protected $table = 'confirmable_actions';
 
@@ -18,6 +21,17 @@ class Confirmable extends Model
     const STATUS_PHONE_NEEDED = 'PHONE_NEEDED';
     const STATUS_VERIFIED = 'VERIFIED';
     const STATUS_EXECUTED = 'EXECUTED';
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleted(function ($confirmable) {
+            foreach($confirmable->codes as $code) {
+                $code->delete();
+            }
+        });
+    }
 
     public function build(
         BaseActionJob $job,
@@ -31,6 +45,11 @@ class Confirmable extends Model
         $this->phone_required = $phoneRequired;
 
         $this->save();
+    }
+
+    public function codes(): HasMany
+    {
+        return $this->hasMany(ConfirmableCode::class);
     }
 
     public function findByXid(string $xid): self {
@@ -97,10 +116,16 @@ class Confirmable extends Model
             $this->dispatched_at = Carbon::now();
             $this->save();
 
+            $this->deleteConfirmable();
             return static::STATUS_EXECUTED;
         }
 
         return $nextStep;
+    }
+
+    private function deleteConfirmable()
+    {
+        $this->delete();
     }
 
     private function dispatch(): void

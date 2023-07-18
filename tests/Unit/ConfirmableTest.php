@@ -23,7 +23,7 @@ class ConfirmableTest extends TestCase
 
     /**
      * @test
-     * @group actioxx
+     * @group action
      */
     public function ConfirmableNoRequire_NothingSet_Success(): void
     {
