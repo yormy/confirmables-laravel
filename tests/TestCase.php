@@ -1,23 +1,21 @@
 <?php
 
-namespace Yormy\ConfirmablesLaravel\tests;
+namespace Yormy\ConfirmablesLaravel\Tests;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Route;
-use jdavidbakr\MailTracker\MailTrackerServiceProvider;
-use LiranCo\NotificationSubscriptions\NotificationSubscriptionsServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 use Spatie\LaravelRay\RayServiceProvider;
 use Yormy\ConfirmablesLaravel\ConfirmablesServiceProvider;
 
 abstract class TestCase extends BaseTestCase
 {
-    // disable after migration to inpect db during test
-    use RefreshDatabase;
+    // disable after migration to inspect db during test
+    //use RefreshDatabase;
 
     protected function setUp(): void
     {
         $this->updateEnv();
+        $this->setupDatabase();
 
         parent::setUp();
 
@@ -48,13 +46,13 @@ abstract class TestCase extends BaseTestCase
         copy('./tests/Setup/.env', './vendor/orchestra/testbench-core/laravel/.env');
     }
 
-    /**
-     * @psalm-return \Closure():'next'
-     */
-    public function getNextClosure(): \Closure
+    protected function setupDatabase()
     {
-        return function () {
-            return 'next';
-        };
+        $migrations = [
+            'test_users.php'
+        ];
+        foreach ($migrations as $filename) {
+            copy("./tests/Setup/Database/Migrations/$filename", "./vendor/orchestra/testbench-core/laravel/database/migrations/$filename");
+        }
     }
 }

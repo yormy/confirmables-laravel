@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('confirmables', function (Blueprint $table) {
+        Schema::create('confirmable_actions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('xid')->unique();
             $table->longText('payload');

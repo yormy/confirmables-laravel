@@ -1,8 +1,8 @@
 <?php
 
-namespace Yormy\ConfirmablesLaravel\tests\Traits;
+namespace Yormy\ConfirmablesLaravel\Tests\Traits;
 
-use Yormy\ConfirmablesLaravel\tests\Models\User;
+use Yormy\ConfirmablesLaravel\Tests\Setup\Models\User;
 
 trait UserTrait
 {

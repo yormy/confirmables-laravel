@@ -12,6 +12,8 @@ class Confirmable extends Model
 {
     use Xid;
 
+    protected $table = 'confirmable_actions';
+
     const STATUS_EMAIL_NEEDED = 'EMAIL_NEEDED';
     const STATUS_PHONE_NEEDED = 'PHONE_NEEDED';
     const STATUS_VERIFIED = 'VERIFIED';

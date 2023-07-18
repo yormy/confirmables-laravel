@@ -1,9 +1,13 @@
-Create job
-store in database
---
-get from database
-dispatch
+# TODO
+Confirmable by
+Password
+Loginname ?
+unit test job performed
 
+
+# Verify Code:
+-track number of retries
+- code cleanup after use / or after expiration
 
 
 # CLEANUP
