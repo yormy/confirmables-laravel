@@ -67,7 +67,7 @@ class ConfirmableCode extends Model
 
     public function setExpiresInMinutes(int $minutes = 10)
     {
-        $expiresAt = CarbonImmutable::now()->addMinutes($minutes);
+        $this->expiresAt = CarbonImmutable::now()->addMinutes($minutes);
     }
 
     public function setExpiresAt(CarbonImmutable $expiresAt = null)
