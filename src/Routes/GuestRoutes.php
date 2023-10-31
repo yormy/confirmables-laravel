@@ -9,7 +9,7 @@ class GuestRoutes
 {
     public static function register(): void
     {
-        Route::macro('ChaskiUnsubscribeRoutes', function (string $prefix = '') {
+        Route::macro('ConfirmableRoutes', function (string $prefix = '') {
             Route::prefix($prefix)
                 ->name('confirmables.')
                 ->group(function () {
@@ -17,7 +17,7 @@ class GuestRoutes
                     Route::prefix('email')
                         ->name('email.')
                         ->group(function () {
-                            Route::get('/u/{token}', [UnsubscribeController::class, 'unsubscribe'])->name('unsubscribe');
+                    //        Route::get('/u/{token}', [UnsubscribeController::class, 'unsubscribe'])->name('unsubscribe');
                         });
                 });
         });

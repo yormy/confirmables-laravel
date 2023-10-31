@@ -10,7 +10,7 @@ use Yormy\ConfirmablesLaravel\ConfirmablesServiceProvider;
 abstract class TestCase extends BaseTestCase
 {
     // disable after migration to inspect db during test
-    //use RefreshDatabase;
+    use RefreshDatabase;
 
     protected function setUp(): void
     {
