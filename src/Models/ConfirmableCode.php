@@ -90,4 +90,14 @@ class ConfirmableCode extends Model
     {
         $this->accept_from_ip = $ip;
     }
+
+    public function setForEmail()
+    {
+        $this->method = Confirmable::METHOD_EMAIL;
+    }
+
+    public function setForPhone()
+    {
+        $this->method = Confirmable::METHOD_PHONE;
+    }
 }

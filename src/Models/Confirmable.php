@@ -6,8 +6,8 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Mexion\BedrockCore\Services\ConfirmCodeService;
 use Yormy\ConfirmablesLaravel\Jobs\BaseActionData;
-use Yormy\ConfirmablesLaravel\Jobs\BaseActionJob;
 use Yormy\Xid\Models\Traits\Xid;
 
 class Confirmable extends Model
@@ -15,12 +15,16 @@ class Confirmable extends Model
     use Xid;
     use SoftDeletes;
 
-    protected $table = 'confirmable_actions';
+    const METHOD_EMAIL = 'EMAIL';
+    const METHOD_PHONE = 'PHONE';
+    // const METHOD_AUTHENTICATOR = 'AUTHENTICATOR';
 
     const STATUS_EMAIL_NEEDED = 'EMAIL_NEEDED';
     const STATUS_PHONE_NEEDED = 'PHONE_NEEDED';
     const STATUS_VERIFIED = 'VERIFIED';
     const STATUS_EXECUTED = 'EXECUTED';
+
+    protected $table = 'confirmable_actions';
 
     public static function boot()
     {
@@ -34,17 +38,82 @@ class Confirmable extends Model
     }
 
     public function build(
-        BaseActionJob $job,
+        string $jobClass,
         BaseActionData $data,
         bool $emailRequired = false,
         bool $phoneRequired = false,
     ) {
-        $this->payload = serialize($job);
-        $this->arguments = serialize($data);
+        $this->payload = $jobClass;
+        $this->arguments = json_encode($data);
         $this->email_required = $emailRequired;
         $this->phone_required = $phoneRequired;
 
         $this->save();
+    }
+
+    private function getCurrentConfirmMethod(): ?string
+    {
+        if ($this->email_required && !$this->isEmailVerified()) {
+            return self::METHOD_EMAIL;
+        }
+
+        if ($this->phone_required && !$this->isPhoneVerified()) {
+            return self::METHOD_PHONE;
+        }
+
+        return null;
+    }
+
+    private function getCurrentConfirmMethodTitle(): ?string
+    {
+        if ($this->getCurrentConfirmMethod() === self::METHOD_EMAIL) {
+            return __($this->email_code_title);
+        }
+
+        if ($this->getCurrentConfirmMethod() === self::METHOD_PHONE) {
+
+            return __($this->phone_code_title);
+        }
+
+        return null;
+    }
+
+
+    private function getCurrentConfirmMethodDescription(): ?string
+    {
+        if ($this->getCurrentConfirmMethod() === self::METHOD_EMAIL) {
+            return __($this->email_code_description);
+        }
+
+        if ($this->getCurrentConfirmMethod() === self::METHOD_PHONE) {
+            return __($this->phone_code_description);
+        }
+
+        return null;
+    }
+
+    /**
+     * The response that is given when the job execution is finished
+     */
+    public function successResponse(array $successResponse): void
+    {
+        $this->success_response = json_encode($successResponse);
+    }
+
+    public function getSuccessResponse(): array
+    {
+        return json_decode($this->success_response, true);
+    }
+
+
+    public function enterCodeResponse(): array
+    {
+        return [
+            "xid" => $this->xid,
+            "method" => $this->getCurrentConfirmMethod(),
+            "title" => $this->getCurrentConfirmMethodTitle(),
+            "description" => $this->getCurrentConfirmMethodDescription(),
+        ];
     }
 
     public function codes(): HasMany
@@ -56,16 +125,22 @@ class Confirmable extends Model
         return $this->where('xid', $xid)->firstOrFail();
     }
 
-    public function emailRequired(): self
+    public function emailRequired(string $tileKey = null, string $descriptionKey = null): self
     {
         $this->email_required = true;
+        $this->email_code_title = $tile ?? 'confirmables::action.method.email.title';
+        $this->email_code_description = $description ?? 'confirmables::action.method.email.description';
 
         return $this;
     }
 
-    public function phoneRequired(): self
+    public function phoneRequired(string $tileKey = null, string $descriptionKey = null): self
     {
         $this->phone_required = true;
+
+        $this->phone_code_title = $tile ?? 'confirmables::action.method.phone.title';
+        $this->phone_code_description = $description ?? 'confirmables::action.method.phone.description';
+
         return $this;
     }
 
@@ -130,8 +205,7 @@ class Confirmable extends Model
 
     private function dispatch(): void
     {
-        $unserialized = unserialize($this->payload);
-        $arguments = unserialize($this->arguments);
-        $unserialized->dispatch(...$arguments->toArray());
+        $arguments = json_decode($this->arguments, true);
+        $this->payload::dispatch(...$arguments);
     }
 }

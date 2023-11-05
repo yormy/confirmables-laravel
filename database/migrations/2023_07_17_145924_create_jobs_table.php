@@ -16,9 +16,15 @@ return new class extends Migration
             $table->string('xid')->unique();
             $table->longText('payload');
             $table->longText('arguments')->nullable();
+            $table->longText('success_response')->nullable();
 
             $table->boolean('email_required')->nullable();
             $table->boolean('phone_required')->nullable();
+
+            $table->string('email_code_title')->nullable();
+            $table->string('email_code_description')->nullable();
+            $table->string('phone_code_title')->nullable();
+            $table->string('phone_code_description')->nullable();
 
             $table->datetime('email_verified_at')->nullable();
             $table->string('email_verified_from')->nullable();

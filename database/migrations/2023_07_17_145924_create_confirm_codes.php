@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignIdFor(Confirmable::class);
 
             $table->string('code');
+            $table->string('method');
             $table->string('token')->nullable();
 
             $table->bigInteger('user_id')->nullable()->unsigned();
