@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Yormy\ConfirmablesLaravel\Models;
 
@@ -6,17 +6,9 @@ use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Str;
-use Mexion\BedrockCore\Exceptions\InvalidValueException;
-use Mexion\BedrockCore\Libraries\GlobalHelper;
-use Mexion\BedrockCore\Models\ConfirmCode;
-use Yormy\ConfirmablesLaravel\Jobs\BaseActionData;
-use Yormy\ConfirmablesLaravel\Jobs\BaseActionJob;
 use Yormy\ConfirmablesLaravel\Services\CodeGenerator;
 use Yormy\ConfirmablesLaravel\Traits\HasPackageFactory;
-use Yormy\Dateformatter\Services\DateHelper;
-use Yormy\Xid\Models\Traits\Xid;
 
 class ConfirmableCode extends Model
 {
