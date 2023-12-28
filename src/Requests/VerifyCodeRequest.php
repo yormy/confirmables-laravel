@@ -11,8 +11,8 @@ class VerifyCodeRequest extends FormRequest
      */
     public function rules(): array
     {
-        $rules['confirm_code'] = ['required', 'min:3', 'max:10'];
         $rules['xid'] = ['required'];
+        $rules['confirm_code'] = ['required', 'min:3', 'max:10'];
 
         return $rules;
     }

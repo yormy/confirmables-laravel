@@ -12,7 +12,7 @@ class CodeVerifier
     {
         $codeVerified = self::verify($code, $ip, $user);
 
-        if ($codeVerified->method !== Confirmable::METHOD_EMAIL) {
+        if (!$codeVerified || $codeVerified->method !== Confirmable::METHOD_EMAIL) {
             return null;
         }
 
@@ -23,7 +23,7 @@ class CodeVerifier
     {
         $codeVerified = self::verify($code, $ip, $user);
 
-        if ($codeVerified->method !== Confirmable::METHOD_PHONE) {
+        if (!$codeVerified || $codeVerified->method !== Confirmable::METHOD_PHONE) {
             return null;
         }
 

@@ -102,6 +102,10 @@ class Confirmable extends Model
 
     public function getSuccessResponse(): array
     {
+        if (!$this->success_response) {
+            return [];
+        }
+
         return json_decode($this->success_response, true);
     }
 
