@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Str;
 use Yormy\ConfirmablesLaravel\Services\CodeGenerator;
-use Yormy\ConfirmablesLaravel\Traits\HasPackageFactory;
+use Yormy\CoreToolsLaravel\Traits\Factories\PackageFactoryTrait;
 
 class ConfirmableCode extends Model
 {
-    use HasPackageFactory;
+    use PackageFactoryTrait;
 
     protected $table = 'confirmable_codes';
 
