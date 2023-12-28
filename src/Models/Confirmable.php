@@ -6,7 +6,6 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Mexion\BedrockCore\Services\ConfirmCodeService;
 use Yormy\ConfirmablesLaravel\Jobs\BaseActionData;
 use Yormy\Xid\Models\Traits\Xid;
 
