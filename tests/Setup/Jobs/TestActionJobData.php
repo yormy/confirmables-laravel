@@ -11,7 +11,7 @@ class TestActionJobData extends BaseActionData
     public function toArray()
     {
         return [
-            'firstname' => $this->firstname
+            'firstname' => $this->firstname,
         ];
     }
 }

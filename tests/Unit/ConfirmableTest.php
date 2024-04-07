@@ -11,8 +11,8 @@ use Yormy\ConfirmablesLaravel\Tests\Traits\UserTrait;
 
 class ConfirmableTest extends TestCase
 {
-    use UserTrait;
     use ConfirmableTrait;
+    use UserTrait;
 
     public function SetUp(): void
     {
@@ -183,8 +183,6 @@ class ConfirmableTest extends TestCase
         $this->assertEquals(Confirmable::STATUS_EMAIL_NEEDED, $result);
     }
 
-
-
     /**
      * @test
      * @group action
@@ -205,11 +203,11 @@ class ConfirmableTest extends TestCase
         $this->assertEquals(Confirmable::STATUS_EXECUTED, $result);
     }
 
-
     // ---------- HELPERS ----------
     protected function findConfirmable(string $xid): Confirmable
     {
         $confirmable = new Confirmable();
+
         return $confirmable->findByXid($xid);
     }
 
@@ -222,5 +220,4 @@ class ConfirmableTest extends TestCase
     {
         Event::assertNotDispatched(ConfirmableExecuted::class);
     }
-
 }

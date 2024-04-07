@@ -4,7 +4,6 @@ namespace Yormy\ConfirmablesLaravel\Routes;
 
 use Illuminate\Support\Facades\Route;
 use Yormy\ConfirmablesLaravel\Controllers\CodeVerifyController;
-use Yormy\ConfirmablesLaravel\Domain\Subscription\Http\Controllers\UnsubscribeController;
 
 class GuestRoutes
 {

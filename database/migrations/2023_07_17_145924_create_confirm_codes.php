@@ -26,8 +26,6 @@ return new class extends Migration
             $table->dateTime('expires_at')->nullable();
             $table->string('accept_from_ip')->nullable();
 
-
-
             $table->timestamps();
         });
     }

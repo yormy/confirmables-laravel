@@ -9,9 +9,9 @@ use Yormy\ConfirmablesLaravel\Tests\Traits\UserTrait;
 
 class MiscTest extends TestCase
 {
-    use UserTrait;
-    use ConfirmableTrait;
     use CodeTrait;
+    use ConfirmableTrait;
+    use UserTrait;
 
     /**
      * @test

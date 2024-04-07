@@ -1,7 +1,5 @@
 <?php
 
-use Yormy\ConfirmablesLaravel\Tests\Setup\Models\User;
-
 return [
 
     'default_language' => 'en',
@@ -11,6 +9,6 @@ return [
     ],
 
     'confirm_code' => [
-        'lifetime_in_minutes' => 70
-    ]
+        'lifetime_in_minutes' => 70,
+    ],
 ];

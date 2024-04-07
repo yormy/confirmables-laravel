@@ -17,7 +17,7 @@ class ConfirmableCodeFactory extends Factory
 
         return [
             'code' => CodeGenerator::generate(),
-            'expires_at' => Carbon::now()->addMinutes(70)
+            'expires_at' => Carbon::now()->addMinutes(70),
         ];
     }
 }

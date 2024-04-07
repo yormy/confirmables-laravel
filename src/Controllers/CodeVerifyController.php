@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Yormy\ConfirmablesLaravel\Controllers;
 
@@ -17,7 +19,7 @@ class CodeVerifyController
         $verifiedCode = CodeVerifier::verifyForEmail($code);
 
         $result = $this->isValid($verifiedCode, $xid);
-        if ( $result !== true) {
+        if ($result !== true) {
             return $result;
         }
 
@@ -33,7 +35,7 @@ class CodeVerifyController
         $verifiedCode = CodeVerifier::verifyForPhone($code);
 
         $result = $this->isValid($verifiedCode, $xid);
-        if ( $result !== true) {
+        if ($result !== true) {
             return $result;
         }
 
@@ -44,11 +46,11 @@ class CodeVerifyController
 
     private function isValid($verifiedCode, string $xid)
     {
-        if (!$verifiedCode || !$verifiedCode->confirmable) {
+        if (! $verifiedCode || ! $verifiedCode->confirmable) {
             return ApiResponse::errorResponse(VerificationError::INVALID_CODE);
         }
 
-        if($verifiedCode->confirmable->xid !== $xid) {
+        if ($verifiedCode->confirmable->xid !== $xid) {
             // The code did not match the action
             return ApiResponse::errorResponse(VerificationError::INVALID_CODE);
         }
@@ -70,5 +72,4 @@ class CodeVerifyController
 
         return ApiResponse::withData($data)->successResponse();
     }
-
 }

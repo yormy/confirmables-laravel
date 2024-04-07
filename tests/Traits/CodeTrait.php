@@ -23,7 +23,7 @@ trait CodeTrait
     private function createAction(): Confirmable
     {
         $confirmable = new Confirmable();
-        $confirmable->payload ='dddd';
+        $confirmable->payload = 'dddd';
         $confirmable->save();
 
         return $confirmable;

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Yormy\ConfirmablesLaravel\Domain\Shared\Services;
 
@@ -12,7 +14,7 @@ class Purifier
         return htmlspecialchars($dirtyHtml);
     }
 
-    public static function cleanHtml(string $dirtyHtml, string $allowedHtml = null): string
+    public static function cleanHtml(string $dirtyHtml, ?string $allowedHtml = null): string
     {
 
         $cacheDirectory = storage_path('htmlpurifier_cache');

@@ -4,7 +4,6 @@ namespace Yormy\ConfirmablesLaravel;
 
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
-use jdavidbakr\MailTracker\MailTracker;
 use Yormy\ConfirmablesLaravel\ServiceProviders\EventServiceProvider;
 use Yormy\ConfirmablesLaravel\ServiceProviders\RouteServiceProvider;
 

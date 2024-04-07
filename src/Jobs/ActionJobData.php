@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Yormy\ConfirmablesLaravel\Jobs;
 
@@ -9,7 +11,7 @@ class ActionJobData extends BaseActionData
     public function toArray()
     {
         return [
-            'firstname' => $this->firstname
+            'firstname' => $this->firstname,
         ];
     }
 }

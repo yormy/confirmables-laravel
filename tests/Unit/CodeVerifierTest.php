@@ -10,8 +10,8 @@ use Yormy\ConfirmablesLaravel\Tests\Traits\UserTrait;
 
 class CodeVerifierTest extends TestCase
 {
-    use UserTrait;
     use CodeTrait;
+    use UserTrait;
 
     /**
      * @test
@@ -41,7 +41,6 @@ class CodeVerifierTest extends TestCase
 
         $this->assertNull($verifiedCode);
     }
-
 
     /**
      * @test
@@ -76,7 +75,6 @@ class CodeVerifierTest extends TestCase
 
         $this->assertNull($verifiedCode);
     }
-
 
     /**
      * @test

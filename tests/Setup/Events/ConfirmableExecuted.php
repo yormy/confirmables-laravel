@@ -10,6 +10,7 @@ class ConfirmableExecuted
     use Dispatchable;
     use SerializesModels;
 
-    public function __construct() {
+    public function __construct()
+    {
     }
 }

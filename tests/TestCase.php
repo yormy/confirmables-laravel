@@ -34,7 +34,7 @@ abstract class TestCase extends BaseTestCase
     {
         config(['app.key' => 'base64:yNmpwO5YE6xwBz0enheYLBDslnbslodDqK1u+oE5CEE=']);
 
-      //  Route::ChaskiUnsubscribeRoutes();
+        //  Route::ChaskiUnsubscribeRoutes();
     }
 
     /**
@@ -49,7 +49,7 @@ abstract class TestCase extends BaseTestCase
     protected function setupDatabase()
     {
         $migrations = [
-            'test_users.php'
+            'test_users.php',
         ];
         foreach ($migrations as $filename) {
             copy("./tests/Setup/Database/Migrations/$filename", "./vendor/orchestra/testbench-core/laravel/database/migrations/$filename");

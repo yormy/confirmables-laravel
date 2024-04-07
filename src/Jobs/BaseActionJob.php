@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Yormy\ConfirmablesLaravel\Jobs;
 
@@ -10,7 +12,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Yormy\ConfirmablesLaravel\Tests\Helpers\DebugNotification;
 
-class BaseActionJob implements ShouldQueue, ShouldBeEncrypted
+class BaseActionJob implements ShouldBeEncrypted, ShouldQueue
 {
     use Dispatchable;
     use InteractsWithQueue;
@@ -24,9 +26,7 @@ class BaseActionJob implements ShouldQueue, ShouldBeEncrypted
 
     public function handle(): void
     {
-        DebugNotification::send('job processed: '. $this->firstname);
+        DebugNotification::send('job processed: '.$this->firstname);
         // do something with data
     }
-
-
 }

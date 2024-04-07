@@ -11,16 +11,20 @@ use Yormy\Xid\Models\Traits\Xid;
 
 class Confirmable extends Model
 {
-    use Xid;
     use SoftDeletes;
+    use Xid;
 
     const METHOD_EMAIL = 'EMAIL';
+
     const METHOD_PHONE = 'PHONE';
     // const METHOD_AUTHENTICATOR = 'AUTHENTICATOR';
 
     const STATUS_EMAIL_NEEDED = 'EMAIL_NEEDED';
+
     const STATUS_PHONE_NEEDED = 'PHONE_NEEDED';
+
     const STATUS_VERIFIED = 'VERIFIED';
+
     const STATUS_EXECUTED = 'EXECUTED';
 
     protected $table = 'confirmable_actions';
@@ -30,7 +34,7 @@ class Confirmable extends Model
         parent::boot();
 
         static::deleted(function ($confirmable) {
-            foreach($confirmable->codes as $code) {
+            foreach ($confirmable->codes as $code) {
                 $code->delete();
             }
         });
@@ -52,11 +56,11 @@ class Confirmable extends Model
 
     private function getCurrentConfirmMethod(): ?string
     {
-        if ($this->email_required && !$this->isEmailVerified()) {
+        if ($this->email_required && ! $this->isEmailVerified()) {
             return self::METHOD_EMAIL;
         }
 
-        if ($this->phone_required && !$this->isPhoneVerified()) {
+        if ($this->phone_required && ! $this->isPhoneVerified()) {
             return self::METHOD_PHONE;
         }
 
@@ -76,7 +80,6 @@ class Confirmable extends Model
 
         return null;
     }
-
 
     private function getCurrentConfirmMethodDescription(): ?string
     {
@@ -101,21 +104,20 @@ class Confirmable extends Model
 
     public function getSuccessResponse(): array
     {
-        if (!$this->success_response) {
+        if (! $this->success_response) {
             return [];
         }
 
         return json_decode($this->success_response, true);
     }
 
-
     public function enterCodeResponse(): array
     {
         return [
-            "xid" => $this->xid,
-            "method" => $this->getCurrentConfirmMethod(),
-            "title" => $this->getCurrentConfirmMethodTitle(),
-            "description" => $this->getCurrentConfirmMethodDescription(),
+            'xid' => $this->xid,
+            'method' => $this->getCurrentConfirmMethod(),
+            'title' => $this->getCurrentConfirmMethodTitle(),
+            'description' => $this->getCurrentConfirmMethodDescription(),
         ];
     }
 
@@ -124,11 +126,12 @@ class Confirmable extends Model
         return $this->hasMany(ConfirmableCode::class);
     }
 
-    public function findByXid(string $xid): self {
+    public function findByXid(string $xid): self
+    {
         return $this->where('xid', $xid)->firstOrFail();
     }
 
-    public function emailRequired(string $tileKey = null, string $descriptionKey = null): self
+    public function emailRequired(?string $tileKey = null, ?string $descriptionKey = null): self
     {
         $this->email_required = true;
         $this->email_code_title = $tile ?? 'confirmables::action.method.email.title';
@@ -137,7 +140,7 @@ class Confirmable extends Model
         return $this;
     }
 
-    public function phoneRequired(string $tileKey = null, string $descriptionKey = null): self
+    public function phoneRequired(?string $tileKey = null, ?string $descriptionKey = null): self
     {
         $this->phone_required = true;
 
@@ -166,19 +169,19 @@ class Confirmable extends Model
 
     public function isEmailVerified(): bool
     {
-        return (bool)$this->email_verified_at;
+        return (bool) $this->email_verified_at;
     }
 
     public function isPhoneVerified(): bool
     {
-        return (bool)$this->phone_verified_at;
+        return (bool) $this->phone_verified_at;
     }
 
     public function getNextStep()
     {
-        if($this->email_required && !$this->isEmailVerified()) {
+        if ($this->email_required && ! $this->isEmailVerified()) {
             return static::STATUS_EMAIL_NEEDED;
-        } elseif($this->phone_required && !$this->isPhoneVerified()) {
+        } elseif ($this->phone_required && ! $this->isPhoneVerified()) {
             return static::STATUS_PHONE_NEEDED;
         }
 
@@ -188,13 +191,14 @@ class Confirmable extends Model
     public function execute(): string
     {
         $nextStep = $this->getNextStep();
-        if ( $nextStep === static::STATUS_VERIFIED) {
+        if ($nextStep === static::STATUS_VERIFIED) {
             $this->dispatch();
 
             $this->dispatched_at = Carbon::now();
             $this->save();
 
             $this->deleteConfirmable();
+
             return static::STATUS_EXECUTED;
         }
 

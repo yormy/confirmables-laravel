@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Yormy\ConfirmablesLaravel\Models;
 
@@ -16,7 +18,6 @@ class ConfirmableCode extends Model
 
     protected $table = 'confirmable_codes';
 
-
     public function scopeNotExpired($query)
     {
         return $query->where('expires_at', '>', Carbon::now()->toDateTimeString());
@@ -28,10 +29,10 @@ class ConfirmableCode extends Model
             $q->where('user_id', '=', $user?->id)
                 ->where('user_type', $user ? get_class($user) : '');
         })
-        ->orWhereNull('user_id');
+            ->orWhereNull('user_id');
     }
 
-    public function scopeAllowIp($query, string $ip = null)
+    public function scopeAllowIp($query, ?string $ip = null)
     {
         return $query->where(function ($q) use ($ip) {
             $q->where('accept_from_ip', '=', $ip)
@@ -43,7 +44,6 @@ class ConfirmableCode extends Model
     {
         return $this->belongsTo(Confirmable::class);
     }
-
 
     // todo : to config
     public function generate($type = CodeGenerator::TYPE_NUMERIC_ALPHA_UPPERCASE, $length = 6): ConfirmableCode
@@ -62,9 +62,9 @@ class ConfirmableCode extends Model
         $this->expiresAt = CarbonImmutable::now()->addMinutes($minutes);
     }
 
-    public function setExpiresAt(CarbonImmutable $expiresAt = null)
+    public function setExpiresAt(?CarbonImmutable $expiresAt = null)
     {
-        if (!$expiresAt) {
+        if (! $expiresAt) {
             $lifetime = config('confirmables.confirm_code.lifetime_in_minutes');
             $expiresAt = CarbonImmutable::now()->addMinutes($lifetime); // todo- to config
         }

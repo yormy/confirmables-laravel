@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Yormy\ConfirmablesLaravel\Services;
 
@@ -8,29 +10,29 @@ use Yormy\ConfirmablesLaravel\Observers\Events\ConfirmCodeFailedEvent;
 
 class CodeVerifier
 {
-    public static function verifyForEmail(string $code, string $ip = null, $user = null): ?ConfirmableCode
+    public static function verifyForEmail(string $code, ?string $ip = null, $user = null): ?ConfirmableCode
     {
         $codeVerified = self::verify($code, $ip, $user);
 
-        if (!$codeVerified || $codeVerified->method !== Confirmable::METHOD_EMAIL) {
+        if (! $codeVerified || $codeVerified->method !== Confirmable::METHOD_EMAIL) {
             return null;
         }
 
         return $codeVerified;
     }
 
-    public static function verifyForPhone(string $code, string $ip = null, $user = null): ?ConfirmableCode
+    public static function verifyForPhone(string $code, ?string $ip = null, $user = null): ?ConfirmableCode
     {
         $codeVerified = self::verify($code, $ip, $user);
 
-        if (!$codeVerified || $codeVerified->method !== Confirmable::METHOD_PHONE) {
+        if (! $codeVerified || $codeVerified->method !== Confirmable::METHOD_PHONE) {
             return null;
         }
 
         return $codeVerified;
     }
 
-    private static function verify(string $code, string $ip = null, $user = null): ?ConfirmableCode
+    private static function verify(string $code, ?string $ip = null, $user = null): ?ConfirmableCode
     {
         $confirmableCode = ConfirmableCode::where('code', $code)
             ->notExpired();
@@ -40,9 +42,9 @@ class CodeVerifier
 
         $confirmableCode->allowUser($user);
 
-        $foundCode =  $confirmableCode->first();
+        $foundCode = $confirmableCode->first();
 
-        if (!$foundCode) {
+        if (! $foundCode) {
             event(new ConfirmCodeFailedEvent($ip, $user));
         }
 
