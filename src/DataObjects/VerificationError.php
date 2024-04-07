@@ -6,7 +6,7 @@ namespace Yormy\ConfirmablesLaravel\DataObjects;
 
 class VerificationError
 {
-    const INVALID_CODE = [
+    public const INVALID_CODE = [
         'httpCode' => 422,
         'type' => 'code',
         'code' => 'INVALID_CODE',

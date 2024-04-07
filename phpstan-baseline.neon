@@ -1,0 +1,306 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Cannot access property \\$confirmable on Yormy\\\\ConfirmablesLaravel\\\\Models\\\\ConfirmableCode\\|null\\.$#"
+			count: 4
+			path: src/Controllers/CodeVerifyController.php
+
+		-
+			message: "#^Method Yormy\\\\ConfirmablesLaravel\\\\Controllers\\\\CodeVerifyController\\:\\:isValid\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Controllers/CodeVerifyController.php
+
+		-
+			message: "#^Method Yormy\\\\ConfirmablesLaravel\\\\Controllers\\\\CodeVerifyController\\:\\:isValid\\(\\) has parameter \\$verifiedCode with no type specified\\.$#"
+			count: 1
+			path: src/Controllers/CodeVerifyController.php
+
+		-
+			message: "#^Method Yormy\\\\ConfirmablesLaravel\\\\Controllers\\\\CodeVerifyController\\:\\:respond\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Controllers/CodeVerifyController.php
+
+		-
+			message: "#^Method Yormy\\\\ConfirmablesLaravel\\\\Controllers\\\\CodeVerifyController\\:\\:respond\\(\\) has parameter \\$confirmable with no type specified\\.$#"
+			count: 1
+			path: src/Controllers/CodeVerifyController.php
+
+		-
+			message: "#^Method Yormy\\\\ConfirmablesLaravel\\\\Controllers\\\\CodeVerifyController\\:\\:verifyByEmail\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Controllers/CodeVerifyController.php
+
+		-
+			message: "#^Method Yormy\\\\ConfirmablesLaravel\\\\Controllers\\\\CodeVerifyController\\:\\:verifyByPhone\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Controllers/CodeVerifyController.php
+
+		-
+			message: "#^Parameter \\#1 \\$code of static method Yormy\\\\ConfirmablesLaravel\\\\Services\\\\CodeVerifier\\:\\:verifyForEmail\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: src/Controllers/CodeVerifyController.php
+
+		-
+			message: "#^Parameter \\#1 \\$code of static method Yormy\\\\ConfirmablesLaravel\\\\Services\\\\CodeVerifier\\:\\:verifyForPhone\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: src/Controllers/CodeVerifyController.php
+
+		-
+			message: "#^Parameter \\#2 \\$xid of method Yormy\\\\ConfirmablesLaravel\\\\Controllers\\\\CodeVerifyController\\:\\:isValid\\(\\) expects string, mixed given\\.$#"
+			count: 2
+			path: src/Controllers/CodeVerifyController.php
+
+		-
+			message: "#^Property Yormy\\\\ConfirmablesLaravel\\\\Domain\\\\Shared\\\\DataObjects\\\\MailTemplateObject\\:\\:\\$defaultLanguage is never read, only written\\.$#"
+			count: 1
+			path: src/Domain/Shared/DataObjects/MailTemplateObject.php
+
+		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 1
+			path: src/Domain/Shared/DataObjects/MailTemplateObject.php
+
+		-
+			message: "#^Parameter \\#1 \\$value of static method Illuminate\\\\Support\\\\Facades\\\\Crypt\\:\\:encryptString\\(\\) expects string, string\\|null given\\.$#"
+			count: 1
+			path: src/Domain/Shared/Services/Encryption.php
+
+		-
+			message: "#^Cannot call method ip\\(\\) on mixed\\.$#"
+			count: 1
+			path: src/Domain/Shared/Services/IpAddress.php
+
+		-
+			message: "#^Method Yormy\\\\ConfirmablesLaravel\\\\Exceptions\\\\InvalidValueException\\:\\:__construct\\(\\) has parameter \\$message with no type specified\\.$#"
+			count: 1
+			path: src/Exceptions/InvalidValueException.php
+
+		-
+			message: "#^Method Yormy\\\\ConfirmablesLaravel\\\\Jobs\\\\ActionJobData\\:\\:toArray\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Jobs/ActionJobData.php
+
+		-
+			message: "#^Access to an undefined property Yormy\\\\ConfirmablesLaravel\\\\Models\\\\Confirmable\\:\\:\\$arguments\\.$#"
+			count: 2
+			path: src/Models/Confirmable.php
+
+		-
+			message: "#^Access to an undefined property Yormy\\\\ConfirmablesLaravel\\\\Models\\\\Confirmable\\:\\:\\$dispatched_at\\.$#"
+			count: 1
+			path: src/Models/Confirmable.php
+
+		-
+			message: "#^Access to an undefined property Yormy\\\\ConfirmablesLaravel\\\\Models\\\\Confirmable\\:\\:\\$email_code_description\\.$#"
+			count: 2
+			path: src/Models/Confirmable.php
+
+		-
+			message: "#^Access to an undefined property Yormy\\\\ConfirmablesLaravel\\\\Models\\\\Confirmable\\:\\:\\$email_code_title\\.$#"
+			count: 2
+			path: src/Models/Confirmable.php
+
+		-
+			message: "#^Access to an undefined property Yormy\\\\ConfirmablesLaravel\\\\Models\\\\Confirmable\\:\\:\\$email_required\\.$#"
+			count: 4
+			path: src/Models/Confirmable.php
+
+		-
+			message: "#^Access to an undefined property Yormy\\\\ConfirmablesLaravel\\\\Models\\\\Confirmable\\:\\:\\$email_verified_at\\.$#"
+			count: 2
+			path: src/Models/Confirmable.php
+
+		-
+			message: "#^Access to an undefined property Yormy\\\\ConfirmablesLaravel\\\\Models\\\\Confirmable\\:\\:\\$payload\\.$#"
+			count: 2
+			path: src/Models/Confirmable.php
+
+		-
+			message: "#^Access to an undefined property Yormy\\\\ConfirmablesLaravel\\\\Models\\\\Confirmable\\:\\:\\$phone_code_description\\.$#"
+			count: 2
+			path: src/Models/Confirmable.php
+
+		-
+			message: "#^Access to an undefined property Yormy\\\\ConfirmablesLaravel\\\\Models\\\\Confirmable\\:\\:\\$phone_code_title\\.$#"
+			count: 2
+			path: src/Models/Confirmable.php
+
+		-
+			message: "#^Access to an undefined property Yormy\\\\ConfirmablesLaravel\\\\Models\\\\Confirmable\\:\\:\\$phone_required\\.$#"
+			count: 4
+			path: src/Models/Confirmable.php
+
+		-
+			message: "#^Access to an undefined property Yormy\\\\ConfirmablesLaravel\\\\Models\\\\Confirmable\\:\\:\\$phone_verified_at\\.$#"
+			count: 2
+			path: src/Models/Confirmable.php
+
+		-
+			message: "#^Access to an undefined property Yormy\\\\ConfirmablesLaravel\\\\Models\\\\Confirmable\\:\\:\\$success_response\\.$#"
+			count: 2
+			path: src/Models/Confirmable.php
+
+		-
+			message: "#^Access to an undefined property Yormy\\\\ConfirmablesLaravel\\\\Models\\\\Confirmable\\:\\:\\$xid\\.$#"
+			count: 1
+			path: src/Models/Confirmable.php
+
+		-
+			message: "#^Call to an undefined method Yormy\\\\ConfirmablesLaravel\\\\Models\\\\Confirmable\\:\\:where\\(\\)\\.$#"
+			count: 1
+			path: src/Models/Confirmable.php
+
+		-
+			message: "#^Method Yormy\\\\ConfirmablesLaravel\\\\Models\\\\Confirmable\\:\\:getCurrentConfirmMethodDescription\\(\\) should return string\\|null but returns array\\|string\\|null\\.$#"
+			count: 2
+			path: src/Models/Confirmable.php
+
+		-
+			message: "#^Method Yormy\\\\ConfirmablesLaravel\\\\Models\\\\Confirmable\\:\\:getCurrentConfirmMethodTitle\\(\\) should return string\\|null but returns array\\|string\\|null\\.$#"
+			count: 2
+			path: src/Models/Confirmable.php
+
+		-
+			message: "#^Method Yormy\\\\ConfirmablesLaravel\\\\Models\\\\Confirmable\\:\\:getNextStep\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Models/Confirmable.php
+
+		-
+			message: "#^Method Yormy\\\\ConfirmablesLaravel\\\\Models\\\\Confirmable\\:\\:getSuccessResponse\\(\\) should return array but returns mixed\\.$#"
+			count: 1
+			path: src/Models/Confirmable.php
+
+		-
+			message: "#^Variable \\$description on left side of \\?\\? is never defined\\.$#"
+			count: 2
+			path: src/Models/Confirmable.php
+
+		-
+			message: "#^Variable \\$tile on left side of \\?\\? is never defined\\.$#"
+			count: 2
+			path: src/Models/Confirmable.php
+
+		-
+			message: "#^Access to an undefined property Yormy\\\\ConfirmablesLaravel\\\\Models\\\\ConfirmableCode\\:\\:\\$accept_from_ip\\.$#"
+			count: 1
+			path: src/Models/ConfirmableCode.php
+
+		-
+			message: "#^Access to an undefined property Yormy\\\\ConfirmablesLaravel\\\\Models\\\\ConfirmableCode\\:\\:\\$code\\.$#"
+			count: 1
+			path: src/Models/ConfirmableCode.php
+
+		-
+			message: "#^Access to an undefined property Yormy\\\\ConfirmablesLaravel\\\\Models\\\\ConfirmableCode\\:\\:\\$expiresAt\\.$#"
+			count: 1
+			path: src/Models/ConfirmableCode.php
+
+		-
+			message: "#^Access to an undefined property Yormy\\\\ConfirmablesLaravel\\\\Models\\\\ConfirmableCode\\:\\:\\$expires_at\\.$#"
+			count: 1
+			path: src/Models/ConfirmableCode.php
+
+		-
+			message: "#^Access to an undefined property Yormy\\\\ConfirmablesLaravel\\\\Models\\\\ConfirmableCode\\:\\:\\$method\\.$#"
+			count: 2
+			path: src/Models/ConfirmableCode.php
+
+		-
+			message: "#^Access to an undefined property Yormy\\\\ConfirmablesLaravel\\\\Models\\\\ConfirmableCode\\:\\:\\$token\\.$#"
+			count: 1
+			path: src/Models/ConfirmableCode.php
+
+		-
+			message: "#^Access to an undefined property Yormy\\\\ConfirmablesLaravel\\\\Models\\\\ConfirmableCode\\:\\:\\$user_id\\.$#"
+			count: 1
+			path: src/Models/ConfirmableCode.php
+
+		-
+			message: "#^Access to an undefined property Yormy\\\\ConfirmablesLaravel\\\\Models\\\\ConfirmableCode\\:\\:\\$user_type\\.$#"
+			count: 1
+			path: src/Models/ConfirmableCode.php
+
+		-
+			message: "#^Method Yormy\\\\ConfirmablesLaravel\\\\Models\\\\ConfirmableCode\\:\\:generate\\(\\) has parameter \\$length with no type specified\\.$#"
+			count: 1
+			path: src/Models/ConfirmableCode.php
+
+		-
+			message: "#^Method Yormy\\\\ConfirmablesLaravel\\\\Models\\\\ConfirmableCode\\:\\:generate\\(\\) has parameter \\$type with no type specified\\.$#"
+			count: 1
+			path: src/Models/ConfirmableCode.php
+
+		-
+			message: "#^Method Yormy\\\\ConfirmablesLaravel\\\\Models\\\\ConfirmableCode\\:\\:scopeAllowIp\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Models/ConfirmableCode.php
+
+		-
+			message: "#^Method Yormy\\\\ConfirmablesLaravel\\\\Models\\\\ConfirmableCode\\:\\:scopeAllowIp\\(\\) has parameter \\$query with no type specified\\.$#"
+			count: 1
+			path: src/Models/ConfirmableCode.php
+
+		-
+			message: "#^Method Yormy\\\\ConfirmablesLaravel\\\\Models\\\\ConfirmableCode\\:\\:scopeAllowUser\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Models/ConfirmableCode.php
+
+		-
+			message: "#^Method Yormy\\\\ConfirmablesLaravel\\\\Models\\\\ConfirmableCode\\:\\:scopeAllowUser\\(\\) has parameter \\$query with no type specified\\.$#"
+			count: 1
+			path: src/Models/ConfirmableCode.php
+
+		-
+			message: "#^Method Yormy\\\\ConfirmablesLaravel\\\\Models\\\\ConfirmableCode\\:\\:scopeAllowUser\\(\\) has parameter \\$user with no type specified\\.$#"
+			count: 1
+			path: src/Models/ConfirmableCode.php
+
+		-
+			message: "#^Method Yormy\\\\ConfirmablesLaravel\\\\Models\\\\ConfirmableCode\\:\\:scopeNotExpired\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Models/ConfirmableCode.php
+
+		-
+			message: "#^Method Yormy\\\\ConfirmablesLaravel\\\\Models\\\\ConfirmableCode\\:\\:scopeNotExpired\\(\\) has parameter \\$query with no type specified\\.$#"
+			count: 1
+			path: src/Models/ConfirmableCode.php
+
+		-
+			message: "#^Method Yormy\\\\ConfirmablesLaravel\\\\Models\\\\ConfirmableCode\\:\\:setOnlyForUser\\(\\) has parameter \\$user with no type specified\\.$#"
+			count: 1
+			path: src/Models/ConfirmableCode.php
+
+		-
+			message: "#^Parameter \\#1 \\$value of method Carbon\\\\CarbonImmutable\\:\\:addMinutes\\(\\) expects float\\|int, mixed given\\.$#"
+			count: 1
+			path: src/Models/ConfirmableCode.php
+
+		-
+			message: "#^Method Yormy\\\\ConfirmablesLaravel\\\\Observers\\\\Events\\\\ConfirmCodeFailedEvent\\:\\:__construct\\(\\) has parameter \\$user with no type specified\\.$#"
+			count: 1
+			path: src/Observers/Events/ConfirmCodeFailedEvent.php
+
+		-
+			message: "#^Access to an undefined property Yormy\\\\ConfirmablesLaravel\\\\Models\\\\ConfirmableCode\\:\\:\\$method\\.$#"
+			count: 2
+			path: src/Services/CodeVerifier.php
+
+		-
+			message: "#^Call to an undefined static method Yormy\\\\ConfirmablesLaravel\\\\Models\\\\ConfirmableCode\\:\\:where\\(\\)\\.$#"
+			count: 1
+			path: src/Services/CodeVerifier.php
+
+		-
+			message: "#^Method Yormy\\\\ConfirmablesLaravel\\\\Services\\\\CodeVerifier\\:\\:verify\\(\\) has parameter \\$user with no type specified\\.$#"
+			count: 1
+			path: src/Services/CodeVerifier.php
+
+		-
+			message: "#^Method Yormy\\\\ConfirmablesLaravel\\\\Services\\\\CodeVerifier\\:\\:verifyForEmail\\(\\) has parameter \\$user with no type specified\\.$#"
+			count: 1
+			path: src/Services/CodeVerifier.php
+
+		-
+			message: "#^Method Yormy\\\\ConfirmablesLaravel\\\\Services\\\\CodeVerifier\\:\\:verifyForPhone\\(\\) has parameter \\$user with no type specified\\.$#"
+			count: 1
+			path: src/Services/CodeVerifier.php

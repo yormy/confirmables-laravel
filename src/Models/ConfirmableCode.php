@@ -25,16 +25,16 @@ class ConfirmableCode extends Model
 
     public function scopeAllowUser($query, $user = null)
     {
-        return $query->where(function ($q) use ($user) {
+        return $query->where(function ($q) use ($user): void {
             $q->where('user_id', '=', $user?->id)
-                ->where('user_type', $user ? get_class($user) : '');
+                ->where('user_type', $user ? $user::class : '');
         })
             ->orWhereNull('user_id');
     }
 
     public function scopeAllowIp($query, ?string $ip = null)
     {
-        return $query->where(function ($q) use ($ip) {
+        return $query->where(function ($q) use ($ip): void {
             $q->where('accept_from_ip', '=', $ip)
                 ->orWhereNull('accept_from_ip');
         });
@@ -57,12 +57,12 @@ class ConfirmableCode extends Model
         return $confirmationCode;
     }
 
-    public function setExpiresInMinutes(int $minutes = 10)
+    public function setExpiresInMinutes(int $minutes = 10): void
     {
         $this->expiresAt = CarbonImmutable::now()->addMinutes($minutes);
     }
 
-    public function setExpiresAt(?CarbonImmutable $expiresAt = null)
+    public function setExpiresAt(?CarbonImmutable $expiresAt = null): void
     {
         if (! $expiresAt) {
             $lifetime = config('confirmables.confirm_code.lifetime_in_minutes');
@@ -72,23 +72,23 @@ class ConfirmableCode extends Model
         $this->expires_at = $expiresAt;
     }
 
-    public function setOnlyForUser($user)
+    public function setOnlyForUser($user): void
     {
         $this->user_id = $user->id;
-        $this->user_type = get_class($user);
+        $this->user_type = $user::class;
     }
 
-    public function setOnlyForIp(string $ip)
+    public function setOnlyForIp(string $ip): void
     {
         $this->accept_from_ip = $ip;
     }
 
-    public function setForEmail()
+    public function setForEmail(): void
     {
         $this->method = Confirmable::METHOD_EMAIL;
     }
 
-    public function setForPhone()
+    public function setForPhone(): void
     {
         $this->method = Confirmable::METHOD_PHONE;
     }

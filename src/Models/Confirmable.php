@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yormy\ConfirmablesLaravel\Models;
 
 use Carbon\Carbon;
@@ -14,26 +16,26 @@ class Confirmable extends Model
     use SoftDeletes;
     use Xid;
 
-    const METHOD_EMAIL = 'EMAIL';
+    public const METHOD_EMAIL = 'EMAIL';
 
-    const METHOD_PHONE = 'PHONE';
+    public const METHOD_PHONE = 'PHONE';
     // const METHOD_AUTHENTICATOR = 'AUTHENTICATOR';
 
-    const STATUS_EMAIL_NEEDED = 'EMAIL_NEEDED';
+    public const STATUS_EMAIL_NEEDED = 'EMAIL_NEEDED';
 
-    const STATUS_PHONE_NEEDED = 'PHONE_NEEDED';
+    public const STATUS_PHONE_NEEDED = 'PHONE_NEEDED';
 
-    const STATUS_VERIFIED = 'VERIFIED';
+    public const STATUS_VERIFIED = 'VERIFIED';
 
-    const STATUS_EXECUTED = 'EXECUTED';
+    public const STATUS_EXECUTED = 'EXECUTED';
 
     protected $table = 'confirmable_actions';
 
-    public static function boot()
+    public static function boot(): void
     {
         parent::boot();
 
-        static::deleted(function ($confirmable) {
+        static::deleted(function ($confirmable): void {
             foreach ($confirmable->codes as $code) {
                 $code->delete();
             }
@@ -45,53 +47,13 @@ class Confirmable extends Model
         BaseActionData $data,
         bool $emailRequired = false,
         bool $phoneRequired = false,
-    ) {
+    ): void {
         $this->payload = $jobClass;
         $this->arguments = json_encode($data);
         $this->email_required = $emailRequired;
         $this->phone_required = $phoneRequired;
 
         $this->save();
-    }
-
-    private function getCurrentConfirmMethod(): ?string
-    {
-        if ($this->email_required && ! $this->isEmailVerified()) {
-            return self::METHOD_EMAIL;
-        }
-
-        if ($this->phone_required && ! $this->isPhoneVerified()) {
-            return self::METHOD_PHONE;
-        }
-
-        return null;
-    }
-
-    private function getCurrentConfirmMethodTitle(): ?string
-    {
-        if ($this->getCurrentConfirmMethod() === self::METHOD_EMAIL) {
-            return __($this->email_code_title);
-        }
-
-        if ($this->getCurrentConfirmMethod() === self::METHOD_PHONE) {
-
-            return __($this->phone_code_title);
-        }
-
-        return null;
-    }
-
-    private function getCurrentConfirmMethodDescription(): ?string
-    {
-        if ($this->getCurrentConfirmMethod() === self::METHOD_EMAIL) {
-            return __($this->email_code_description);
-        }
-
-        if ($this->getCurrentConfirmMethod() === self::METHOD_PHONE) {
-            return __($this->phone_code_description);
-        }
-
-        return null;
     }
 
     /**
@@ -181,7 +143,8 @@ class Confirmable extends Model
     {
         if ($this->email_required && ! $this->isEmailVerified()) {
             return static::STATUS_EMAIL_NEEDED;
-        } elseif ($this->phone_required && ! $this->isPhoneVerified()) {
+        }
+        if ($this->phone_required && ! $this->isPhoneVerified()) {
             return static::STATUS_PHONE_NEEDED;
         }
 
@@ -205,7 +168,46 @@ class Confirmable extends Model
         return $nextStep;
     }
 
-    private function deleteConfirmable()
+    private function getCurrentConfirmMethod(): ?string
+    {
+        if ($this->email_required && ! $this->isEmailVerified()) {
+            return self::METHOD_EMAIL;
+        }
+
+        if ($this->phone_required && ! $this->isPhoneVerified()) {
+            return self::METHOD_PHONE;
+        }
+
+        return null;
+    }
+
+    private function getCurrentConfirmMethodTitle(): ?string
+    {
+        if ($this->getCurrentConfirmMethod() === self::METHOD_EMAIL) {
+            return __($this->email_code_title);
+        }
+
+        if ($this->getCurrentConfirmMethod() === self::METHOD_PHONE) {
+            return __($this->phone_code_title);
+        }
+
+        return null;
+    }
+
+    private function getCurrentConfirmMethodDescription(): ?string
+    {
+        if ($this->getCurrentConfirmMethod() === self::METHOD_EMAIL) {
+            return __($this->email_code_description);
+        }
+
+        if ($this->getCurrentConfirmMethod() === self::METHOD_PHONE) {
+            return __($this->phone_code_description);
+        }
+
+        return null;
+    }
+
+    private function deleteConfirmable(): void
     {
         $this->delete();
     }

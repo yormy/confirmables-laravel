@@ -6,13 +6,13 @@ namespace Yormy\ConfirmablesLaravel\Services;
 
 class CodeGenerator
 {
-    const TYPE_NUMERIC = 1;
+    public const TYPE_NUMERIC = 1;
 
-    const TYPE_NUMERIC_ALPHA_UPPERCASE = 2;
+    public const TYPE_NUMERIC_ALPHA_UPPERCASE = 2;
 
-    const TYPE_NUMERIC_ALPHA_LOWERCASE = 3;
+    public const TYPE_NUMERIC_ALPHA_LOWERCASE = 3;
 
-    const TYPE_NUMERIC_ALPHA_UPPERLOWERCASE = 4;
+    public const TYPE_NUMERIC_ALPHA_UPPERLOWERCASE = 4;
 
     public static function generate(int $type = CodeGenerator::TYPE_NUMERIC_ALPHA_UPPERCASE, int $length = 6): string
     {

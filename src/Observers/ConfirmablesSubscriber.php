@@ -1,10 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yormy\ConfirmablesLaravel\Observers;
 
 use Illuminate\Events\Dispatcher;
-use Yormy\ConfirmablesLaravel\Observers\Interfaces\LoggableEventInterface;
-use Yormy\ConfirmablesLaravel\Observers\Listeners\LogEvent;
 
 class ConfirmablesSubscriber
 {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yormy\ConfirmablesLaravel\Routes;
 
 use Illuminate\Support\Facades\Route;
@@ -9,14 +11,13 @@ class GuestRoutes
 {
     public static function register(): void
     {
-        Route::macro('ConfirmablesRoutes', function (string $prefix = '') {
+        Route::macro('ConfirmablesRoutes', function (string $prefix = ''): void {
             Route::prefix($prefix)
                 ->name('confirmables.')
-                ->group(function () {
-
+                ->group(function (): void {
                     Route::prefix('action/email')
                         ->name('action.email.')
-                        ->group(function () {
+                        ->group(function (): void {
                             Route::post('/verify', [CodeVerifyController::class, 'verifyByEmail'])->name('verify');
                         });
                 });

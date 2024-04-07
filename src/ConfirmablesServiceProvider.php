@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yormy\ConfirmablesLaravel;
 
 use Illuminate\Routing\Router;
@@ -9,14 +11,14 @@ use Yormy\ConfirmablesLaravel\ServiceProviders\RouteServiceProvider;
 
 class ConfirmablesServiceProvider extends ServiceProvider
 {
-    const CONFIG_FILE = __DIR__.'/../config/confirmables.php';
+    public const CONFIG_FILE = __DIR__.'/../config/confirmables.php';
 
-    const CONFIG_IDE_HELPER_FILE = __DIR__.'/../config/ide-helper.php';
+    public const CONFIG_IDE_HELPER_FILE = __DIR__.'/../config/ide-helper.php';
 
     /**
      * @psalm-suppress MissingReturnType
      */
-    public function boot(Router $router)
+    public function boot(Router $router): void
     {
         $this->publish();
 
@@ -38,13 +40,27 @@ class ConfirmablesServiceProvider extends ServiceProvider
     /**
      * @psalm-suppress MixedArgument
      */
-    public function register()
+    public function register(): void
     {
         $this->mergeConfigFrom(static::CONFIG_FILE, 'confirmables');
         $this->mergeConfigFrom(static::CONFIG_IDE_HELPER_FILE, 'ide-helper');
 
         $this->app->register(EventServiceProvider::class);
         $this->app->register(RouteServiceProvider::class);
+    }
+
+    public function registerMiddleware(Router $router): void
+    {
+    }
+
+    public function registerListeners(): void
+    {
+        //        $this->app['events']->listen(TripwireBlockedEvent::class, NotifyAdmin::class);
+    }
+
+    public function registerTranslations(): void
+    {
+        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'confirmables');
     }
 
     private function publish(): void
@@ -70,20 +86,6 @@ class ConfirmablesServiceProvider extends ServiceProvider
             $this->commands([
             ]);
         }
-    }
-
-    public function registerMiddleware(Router $router): void
-    {
-    }
-
-    public function registerListeners(): void
-    {
-        //        $this->app['events']->listen(TripwireBlockedEvent::class, NotifyAdmin::class);
-    }
-
-    public function registerTranslations(): void
-    {
-        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'confirmables');
     }
 
     private function morphMaps(): void
