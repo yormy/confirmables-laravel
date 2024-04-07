@@ -19,3 +19,4 @@ Chaski is a message extension with many different additional features like:
 ## License
 
 The MIT License (MIT). Please see [License File]((https://yormy.github.io/confirmables-laravel/general/license.html) for more information.
+
