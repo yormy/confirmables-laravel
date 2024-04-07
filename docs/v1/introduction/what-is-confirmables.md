@@ -1,6 +1,6 @@
 # Chaski - Message Extension
 
-![confirmables](../../assets/images/confirmables.png)
+![confirmables](../../public/yormy.png)
 
 ::: tip Definition
 
